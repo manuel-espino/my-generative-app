@@ -7,8 +7,9 @@ import { useState } from "react";
 import GenerateSVG from "./GenerateSVG";
 import { getRandomRGBA, guardarPNG, } from "./tools";
 import Generate from "./Generate";
+import generateColoursObject from './generateColoursObject';
 
-
+/*
 const objects = [[{
     key: 0,
     fill: "red",
@@ -86,12 +87,15 @@ const objects = [[{
     y: "100"
 }]];
 
+*/
+console.log("oju", generateColoursObject())
+
 function Canvas() {
 
-    const [colors, setColor] = useState({ objetc: objects, name: "" });
+    const [state, setState] = useState({ objetc: generateColoursObject(), name: "" });
 
     const setNameToSave = (newName) => {
-        setColor({ ...colors, name: newName })
+        setState({ ...state, name: newName })
 
     };
 
@@ -103,7 +107,7 @@ function Canvas() {
                         <g>
                             {/*<GenerateSVG object={colors.objetc} generateColorMode={getRandomRGBA} />
                         */}
-                            <Generate object={objects} generateColorMode={getRandomRGBA} />
+                            <Generate object={state.objetc} generateColorMode={getRandomRGBA} />
                         </g>
                     </svg>
                 </div>
@@ -111,8 +115,8 @@ function Canvas() {
 
             <div>
                 <form>
-                    <input value={colors.name} onChange={e => setNameToSave(e.target.value)} placeholder="Save as" />
-                    <Button onClick={() => guardarPNG(colors.name)} text="Download" />
+                    <input value={state.name} onChange={e => setNameToSave(e.target.value)} placeholder="Save as" />
+                    <Button onClick={() => guardarPNG(state.name)} text="Download" />
                 </form>
             </div>
         </Contenedor>
